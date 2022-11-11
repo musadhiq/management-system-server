@@ -1,12 +1,14 @@
 import Express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import dotenv from "dotenv";
 //
 import userRouter from "./routes/userRoutes.js";
 import workRouter from "./routes/workRoutes.js";
 import teamRoutes from "./routes/teamRoutes.js";
 import mongoose from "mongoose";
 const app = Express();
+dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 // middlewares
@@ -23,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 // mongodb
-const connectionString = `mongodb+srv://cloudsysadmin:cloudsys123@clouddb.ffg0rtm.mongodb.net/?retryWrites=true&w=majority`;
+const connectionString = process.env.MONGODB_URI;
 mongoose
   .connect(connectionString, {
     useNewUrlParser: true,
