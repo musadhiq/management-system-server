@@ -27,6 +27,10 @@ export const createTeam = async (req, res) => {
 export const addMember = async (req, res) => {
   const { teamid, memid } = req.body;
   try {
+    const isInTeam = await teamData.find({ members: memid });
+    console.log(isInTeam);
+    if (isInTeam.length > 0)
+      return res.status(200).json({ message: "Member already in a team" });
     await teamData.updateOne(
       { _id: teamid },
       {
@@ -34,6 +38,20 @@ export const addMember = async (req, res) => {
       }
     );
     res.status(200).json({ message: "added" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const removeMember = async (req, res) => {
+  const { teamid, memid } = req.body;
+  try {
+    await teamData.updateOne(
+      { _id: teamid },
+      {
+        $pull: { members: memid },
+      }
+    );
+    res.status(200).json({ message: "removed" });
   } catch (error) {
     console.log(error);
   }

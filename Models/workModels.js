@@ -13,7 +13,7 @@ const workSchema = new mongoose.Schema(
     },
     assignedTo: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Team",
     },
   },
   {
@@ -35,7 +35,6 @@ const splitWorkSchema = new mongoose.Schema(
     },
     workName: {
       type: String,
-      required: true,
     },
     description: String,
     status: {

@@ -83,3 +83,23 @@ export const deleteWork = async (req, res) => {
     console.log(error);
   }
 };
+
+export const assignToTeam = async (req, res) => {
+  const { id } = req.params;
+  const { teamid } = req.body;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(400).send("Something went wrong try again");
+    await workData.updateOne(
+      { _id: id },
+      {
+        $set: {
+          assignedTo: teamid,
+        },
+      }
+    );
+    res.status(200).send("success");
+  } catch (error) {
+    console.log(error);
+  }
+};
