@@ -21,7 +21,7 @@ app.use("/user", userRouter);
 app.use("/works", workRouter);
 app.use("/team", teamRoutes);
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("Running...");
 });
 
 // mongodb
