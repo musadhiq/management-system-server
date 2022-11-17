@@ -2,11 +2,11 @@ import Express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 //
 import userRouter from "./routes/userRoutes.js";
 import workRouter from "./routes/workRoutes.js";
 import teamRoutes from "./routes/teamRoutes.js";
-import mongoose from "mongoose";
 const app = Express();
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -26,14 +26,15 @@ app.get("/", (req, res) => {
 
 // mongodb
 const connectionString = process.env.MONGODB_URI;
+
 mongoose
-  .connect(connectionString, {
+  .connect("connectionString", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`Server is running on port ${PORT}`);
     });
   })
-  .catch((error) => console.log(error));
+  .catch((error) => console.log(error.message));
